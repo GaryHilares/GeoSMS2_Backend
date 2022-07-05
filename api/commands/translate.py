@@ -11,7 +11,7 @@ FUNCTIONS
 """
 from typing import List
 import translate
-from src import exceptions
+from api.classes import exceptions
 
 
 def unescape_markup(markup):

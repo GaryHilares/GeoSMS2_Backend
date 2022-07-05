@@ -12,8 +12,8 @@ FUNCTIONS
 """
 import dotenv
 import flask
-from src.command_runner import run_command
-from src import exceptions
+from api.command_runner import run_command
+from api.classes import exceptions
 
 dotenv.load_dotenv('.env')
 app = flask.Flask(__name__)

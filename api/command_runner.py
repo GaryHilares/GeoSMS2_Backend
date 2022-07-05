@@ -9,8 +9,8 @@ FUNCTIONS
     run_command: Runs the command given as argument.
 
 """
-from src.commands import translate, search, calculate, joke, news
-from src import exceptions
+from api.commands import translate, search, calculate, joke, news
+from api.classes import exceptions
 
 metadata = {
     'default_per': {
