@@ -16,7 +16,7 @@ from api.command_runner import run_command
 from api.classes import exceptions
 
 dotenv.load_dotenv('.env')
-app = flask.Flask(__name__)
+app = flask.Flask(__name__, template_folder='website')
 
 
 @app.route('/', methods=["GET"])
@@ -26,15 +26,7 @@ def index():
 
     :returns: HTML for the '/' page.
     """
-    return (
-        """
-        <h1>GeoSMS 2.0</h1>
-        <form action="/command" method="POST">
-            <input type="text" name="sms" placeholder="Command">
-            <input type="submit" value="Send">
-        </form>
-        """
-    )
+    return flask.render_template('homepage.html')
 
 
 @app.route('/command', methods=["POST"])
