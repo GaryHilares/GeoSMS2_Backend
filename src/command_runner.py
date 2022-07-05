@@ -9,17 +9,17 @@ FUNCTIONS
     run_command: Runs the command given as argument.
 
 """
-from src import commands
+from src.commands import translate, search, calculate, joke, news
 from utils import exceptions
 
 metadata = {
     'default_per': {
         'commands': {
-            "traducir": commands.translate_from_es_to_en,
-            "noticias": commands.scrap_el_comercio,
-            "chiste": commands.tell_joke_es,
-            "buscar": commands.search_in_google,
-            "calcular": commands.calculate
+            "traducir": translate.translate_from_es_to_en,
+            "noticias": news.scrap_el_comercio,
+            "chiste": joke.tell_joke_es,
+            "buscar": search.search_in_google,
+            "calcular": calculate.calculate
         }
     }
 }
