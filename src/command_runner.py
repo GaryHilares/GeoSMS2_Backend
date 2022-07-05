@@ -10,7 +10,7 @@ FUNCTIONS
 
 """
 from src.commands import translate, search, calculate, joke, news
-from utils import exceptions
+from src import exceptions
 
 metadata = {
     'default_per': {

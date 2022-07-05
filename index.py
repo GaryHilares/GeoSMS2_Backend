@@ -13,7 +13,7 @@ FUNCTIONS
 import dotenv
 import flask
 from src.command_runner import run_command
-from utils import exceptions
+from src import exceptions
 
 dotenv.load_dotenv('.env')
 app = flask.Flask(__name__)

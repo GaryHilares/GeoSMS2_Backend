@@ -11,8 +11,17 @@ FUNCTIONS
 """
 from typing import List
 import translate
-from utils import exceptions
-import utils
+from src import exceptions
+
+
+def unescape_markup(markup):
+    """
+    Unescapes markup.
+
+    :param markup: Markup to unescape.
+    :returns: Markup with all their escaped characters unescaped.
+    """
+    return markup.replace('&quot;', '"').replace('&#39;', '\'')
 
 
 def translate_from_es_to_en(args: List[str]) -> str:
@@ -29,4 +38,4 @@ def translate_from_es_to_en(args: List[str]) -> str:
     translator = translate.Translator(from_lang="es", to_lang="en")
     translated_text = translator.translate(text)
     # Unescape special characters like '.
-    return utils.flask_utils.unescape_markup(translated_text)
+    return unescape_markup(translated_text)
