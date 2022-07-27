@@ -31,4 +31,6 @@ def scrap_el_comercio(args: List[str]) -> str:
             unidecode(word).lower() in unidecode(title).lower() for word in args)]
     else:
         filtered_news_titles = news_titles
+    if len(filtered_news_titles) > 3:
+        filtered_news_titles = filtered_news_titles[:3]
     return '\n'.join(filtered_news_titles)

@@ -38,7 +38,6 @@ def command_request_handler():
     """
     request = flask.request
     sms = request.form.get('sms')
-    print(sms)
     response = None
     try:
         response = run_command(sms)

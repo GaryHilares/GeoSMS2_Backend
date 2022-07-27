@@ -14,7 +14,7 @@ import os
 import requests
 
 
-def search_in_google(args: List[str]) -> str:
+def search_in_google_es(args: List[str]) -> str:
     """
     Searches the given query in Google and returns an answer to it.
 
@@ -23,10 +23,18 @@ def search_in_google(args: List[str]) -> str:
     """
     query = ' '.join(args)
     base_url = "https://api.scaleserp.com/search"
+    api_key = os.environ.get('SCALESERP_KEY')
     params = {
-        'api_key': os.environ['SERPAPI_KEY'],
-        'q': query
+        'api_key': api_key,
+        'q': query,
+        'hl': 'es',
     }
     parent = requests.get(base_url, params).json()
-    answer = parent["answer_box"]["answers"][0]["answer"]
+    answer = ""
+    if 'knowledge_graph' in parent:
+        answer = parent["knowledge_graph"]["description"]
+    elif 'related_questions' in parent and len(parent['related_questions']) > 0:
+        answer = parent["related_questions"][0]["answer"]
+    else:
+        answer = "¡Lo siento! No encontramos tu resultado."
     return answer

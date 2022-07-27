@@ -18,7 +18,7 @@ metadata = {
             "traducir": translate.translate_from_es_to_en,
             "noticias": news.scrap_el_comercio,
             "chiste": joke.tell_joke_es,
-            "buscar": search.search_in_google,
+            "buscar": search.search_in_google_es,
             "calcular": calculate.calculate
         }
     }
