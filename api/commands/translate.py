@@ -39,3 +39,20 @@ def translate_from_es_to_en(args: List[str]) -> str:
     translated_text = translator.translate(text)
     # Unescape special characters like '.
     return unescape_markup(translated_text)
+
+
+def translate_from_en_to_es(args: List[str]) -> str:
+    """
+    Returns a translation of the arguments as an Spanish sentence.
+
+    :param args: The splitted sentence to translate.
+    :returns: Translation of the sentence to English.
+    :raises exceptions.WrongArguments: If `args` is an empty list.
+    """
+    if not args:
+        raise exceptions.WrongArguments("translate_from_en_to_es", args)
+    text = ' '.join(args)
+    translator = translate.Translator(from_lang="en", to_lang="es")
+    translated_text = translator.translate(text)
+    # Unescape special characters like '.
+    return unescape_markup(translated_text)

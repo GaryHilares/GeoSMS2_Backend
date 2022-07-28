@@ -15,7 +15,8 @@ from api.classes import exceptions
 metadata = {
     'default_per': {
         'commands': {
-            "traducir": translate.translate_from_es_to_en,
+            "traducir-es": translate.translate_from_es_to_en,
+            "traducir-en": translate.translate_from_en_to_es,
             "noticias": news.scrap_el_comercio,
             "chiste": joke.tell_joke_es,
             "buscar": search.search_in_google_es,
