@@ -42,9 +42,9 @@ def command_request_handler():
     try:
         response = run_command(sms)
     except exceptions.UnknownCommandException:
-        response = flask.jsonify({"error": "Unknown command"}), 404
+        response = flask.jsonify({"error": "Comando desconocido."}), 404
     except exceptions.WrongArguments:
-        response = flask.jsonify({"error": "Wrong arguments"}), 404
+        response = flask.jsonify({"error": "Argumentos incorrectos."}), 404
     return response
 
 
