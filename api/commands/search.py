@@ -30,6 +30,7 @@ def search_in_google_es(args: List[str]) -> str:
         'hl': 'es',
     }
     parent = requests.get(base_url, params).json()
+    print(parent)
     answer = ""
     if 'knowledge_graph' in parent:
         answer = parent["knowledge_graph"]["description"]
