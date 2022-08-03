@@ -37,4 +37,15 @@ def search_in_google_es(args: List[str]) -> str:
         answer = parent["related_questions"][0]["answer"]
     else:
         answer = "¡Lo siento! No encontramos tu resultado."
+    while len(answer) > 200:
+        answer = answer[:-1]
+        last_point_index = max(
+            answer.rindex('.') if '.' in answer else -1,
+            answer.rindex('!') if '!' in answer else -1,
+            answer.rindex('?') if '?' in answer else -1
+        )
+        if last_point_index != -1:
+            answer = answer[:last_point_index+1]
+        else:
+            answer = answer[:200]
     return answer
