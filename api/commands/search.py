@@ -22,7 +22,7 @@ def search_in_google_es(args: List[str]) -> str:
     :param args: The splitted query.
     :returns: An answer to the given query.
     """
-    query = urllib.parse.quote(' '.join(args), safe='')
+    query = urllib.parse.quote('+'.join(args), safe='')
     base_url = "https://api.scaleserp.com/search"
     api_key = os.environ.get('SCALESERP_KEY')
     params = {
@@ -32,10 +32,13 @@ def search_in_google_es(args: List[str]) -> str:
     }
     parent = requests.get(base_url, params).json()
     answer = ""
-    if 'knowledge_graph' in parent:
+    print(parent)
+    if 'knowledge_graph' in parent and 'description' in parent['knowledge_graph']:
         answer = parent["knowledge_graph"]["description"]
-    elif 'related_questions' in parent and len(parent['related_questions']) > 0:
+    elif 'related_questions' in parent and len(parent['related_questions']) > 0 and 'answer' in parent["related_questions"][0]:
         answer = parent["related_questions"][0]["answer"]
+    elif 'organic_results' in parent and len(parent['organic_results']) > 0 and 'snippet' in parent["organic_results"][0]:
+        answer = parent['organic_results'][0]['snippet']
     else:
         answer = "¡Lo siento! No encontramos tu resultado."
     while len(answer) > 200:
