@@ -10,6 +10,7 @@ FUNCTIONS
 
 """
 from typing import List
+import urllib.parse
 import os
 import requests
 
@@ -21,7 +22,7 @@ def search_in_google_es(args: List[str]) -> str:
     :param args: The splitted query.
     :returns: An answer to the given query.
     """
-    query = ' '.join(args)
+    query = urllib.parse.quote(' '.join(args), safe='')
     base_url = "https://api.scaleserp.com/search"
     api_key = os.environ.get('SCALESERP_KEY')
     params = {
