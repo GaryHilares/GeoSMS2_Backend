@@ -10,23 +10,18 @@ FUNCTIONS
 
 """
 from api.commands import translate, search, calculate, joke, news
-from api.classes import exceptions
+from api.control import exceptions
 
-metadata = {
-    'default_per': {
-        'commands': {
-            "traducir-esp": translate.translate_from_es_to_en,
-            "traducir-ing": translate.translate_from_en_to_es,
-            "noticias": news.scrap_el_comercio,
-            "chiste": joke.tell_joke_es,
-            "buscar": search.search_in_google_es,
-            "calcular": calculate.calculate
-        }
-    }
+commands = {
+    "traducir-esp": translate.translate_from_es_to_en,
+    "traducir-ing": translate.translate_from_en_to_es,
+    "noticia": news.scrap_el_comercio,
+    "chiste": joke.tell_joke_es,
+    "buscar": search.search_in_google_es,
+    "calcular": calculate.calculate
 }
 
-
-def run_command(command: str, country: str = 'default_per') -> str:
+def run_command(command: str) -> str:
     """
     Runs the given command
 
@@ -38,9 +33,7 @@ def run_command(command: str, country: str = 'default_per') -> str:
         raise exceptions.UnknownCommandException()
     split_command = command.split()
     base_command = split_command[0].lower()
-    if country not in metadata:
-        country = 'default'
-    if base_command not in metadata[country]['commands']:
+    if base_command not in commands:
         raise exceptions.UnknownCommandException(base_command)
     args = split_command[1:]
-    return metadata[country]['commands'][base_command](args)
+    return commands[base_command](args)

@@ -11,7 +11,7 @@ FUNCTIONS
 """
 from typing import List
 import translate
-from api.classes import exceptions
+from api.control import exceptions
 
 
 def unescape_markup(markup):
@@ -32,14 +32,20 @@ def translate_from_es_to_en(args: List[str]) -> str:
     :returns: Translation of the sentence to English.
     :raises exceptions.WrongArguments: If `args` is an empty list.
     """
+    # Get text to translate
     if not args:
         raise exceptions.WrongArguments("translate_from_es_to_en", args)
     text = ' '.join(args)
-    translator = translate.Translator(from_lang="es", to_lang="en")
-    translated_text = translator.translate(text)
-    # Unescape special characters like '.
-    return unescape_markup(translated_text)
 
+    # Translate text
+    translator = translate.Translator(from_lang="es", to_lang="en")
+    escaped_translated_text = translator.translate(text)
+
+    # Unescape special characters like '.
+    translated_text = unescape_markup(escaped_translated_text)
+
+    # Check text length
+    return translated_text if len(translated_text) < 150 else "¡Tu texto es muy largo! Intenta acórtarlo."
 
 def translate_from_en_to_es(args: List[str]) -> str:
     """
@@ -49,10 +55,17 @@ def translate_from_en_to_es(args: List[str]) -> str:
     :returns: Translation of the sentence to English.
     :raises exceptions.WrongArguments: If `args` is an empty list.
     """
+    # Get text to translate
     if not args:
         raise exceptions.WrongArguments("translate_from_en_to_es", args)
     text = ' '.join(args)
+
+    # Translate text
     translator = translate.Translator(from_lang="en", to_lang="es")
-    translated_text = translator.translate(text)
+    escaped_translated_text = translator.translate(text)
+
     # Unescape special characters like '.
-    return unescape_markup(translated_text)
+    translated_text = unescape_markup(escaped_translated_text)
+
+    # Check text length
+    return translated_text if len(translated_text) < 150 else "¡Tu texto es muy largo! Intenta acórtarlo."

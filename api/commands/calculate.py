@@ -12,7 +12,7 @@ FUNCTIONS
 import ast
 import operator as op
 from typing import List
-from api.classes import exceptions
+from api.control import exceptions
 
 # <Modified from @jfs's function: https://stackoverflow.com/a/9558001/12170808>
 operators = {ast.Add: op.add, ast.Sub: op.sub, ast.Mult: op.mul,
@@ -58,4 +58,5 @@ def calculate(args: List[str]) -> str:
     if not args:
         raise exceptions.WrongArguments("calculate", args)
     expression = ' '.join(args)
-    return str(eval_expr(expression))
+    response = eval_expr(expression)
+    return str(response)

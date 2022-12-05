@@ -22,6 +22,7 @@ def search_in_google_es(args: List[str]) -> str:
     :param args: The splitted query.
     :returns: An answer to the given query.
     """
+    # Query the API
     query = urllib.parse.quote('+'.join(args), safe='')
     base_url = "https://api.scaleserp.com/search"
     api_key = os.environ.get('SCALESERP_KEY')
@@ -30,18 +31,22 @@ def search_in_google_es(args: List[str]) -> str:
         'q': query,
         'hl': 'es',
     }
-    parent = requests.get(base_url, params).json()
+    response = requests.get(base_url, params).json()
     answer = ""
-    print(parent)
-    if 'knowledge_graph' in parent and 'description' in parent['knowledge_graph']:
-        answer = parent["knowledge_graph"]["description"]
-    elif 'related_questions' in parent and len(parent['related_questions']) > 0 and 'answer' in parent["related_questions"][0]:
-        answer = parent["related_questions"][0]["answer"]
-    elif 'organic_results' in parent and len(parent['organic_results']) > 0 and 'snippet' in parent["organic_results"][0]:
-        answer = parent['organic_results'][0]['snippet']
+
+    # Log the response
+    print(response)
+
+    # Query the API
+    if 'knowledge_graph' in response and 'description' in response['knowledge_graph']:
+        answer = response["knowledge_graph"]["description"]
+    elif 'related_questions' in response and len(response['related_questions']) > 0 and 'answer' in response["related_questions"][0]:
+        answer = response["related_questions"][0]["answer"]
+    elif 'organic_results' in response and len(response['organic_results']) > 0 and 'snippet' in response["organic_results"][0]:
+        answer = response['organic_results'][0]['snippet']
     else:
         answer = "¡Lo siento! No encontramos tu resultado."
-    while len(answer) > 200:
+    while len(answer) > 150:
         answer = answer[:-1]
         last_point_index = max(
             answer.rindex('.') if '.' in answer else -1,
@@ -51,5 +56,5 @@ def search_in_google_es(args: List[str]) -> str:
         if last_point_index != -1:
             answer = answer[:last_point_index+1]
         else:
-            answer = answer[:200]
+            answer = answer[:150]
     return answer

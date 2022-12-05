@@ -20,7 +20,7 @@ class UnknownCommandException(Exception):
             f"Command {unknown_command} is unknown." if unknown_command else "Unknown command.")
 
 
-class WrongArguments(Exception):
+class WrongArgumentsException(Exception):
     """
     Exception raised when a command is called with incorrect arguments.
     """

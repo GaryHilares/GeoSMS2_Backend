@@ -21,16 +21,27 @@ def scrap_el_comercio(args: List[str]) -> str:
     :param args: Words to filter the news headlines.
     :returns: Scrapped and filtered headlines from El Comercio's news.
     """
+    # Parse args
+    filters, index_1indexed = (args[1:], int(args[0])) if args and args[0].isnumeric() else (args, 0)
+
+    # Scrap news titles from El Comercio
     session = HTMLSession()
     result = session.get('https://elcomercio.pe/')
     elements = result.html.find('.fs-wi__title')
     news_titles = [element.text for element in elements]
+
+    # Filter news titles according to parameters
     filtered_news_titles = []
-    if args:
+    if filters:
         filtered_news_titles = [title for title in news_titles if any(
-            unidecode(word).lower() in unidecode(title).lower() for word in args)]
+            unidecode(word).lower() in unidecode(title).lower() for word in filters)]
     else:
         filtered_news_titles = news_titles
-    if len(filtered_news_titles) > 3:
-        filtered_news_titles = filtered_news_titles[:3]
-    return '\n'.join(filtered_news_titles)
+    
+    # Cut first
+    if not (index_1indexed >= 1 and index_1indexed <= len(filtered_news_titles)):
+        return "¡Esa noticia no existe!"
+    title = filtered_news_titles[index_1indexed - 1]
+    
+    # Remove leading spaces
+    return title.strip()

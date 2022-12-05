@@ -13,7 +13,7 @@ FUNCTIONS
 import dotenv
 import flask
 from api.command_runner import run_command
-from api.classes import exceptions
+from api.control import exceptions
 
 dotenv.load_dotenv('.env')
 app = flask.Flask(__name__, template_folder='website')
@@ -43,8 +43,12 @@ def command_request_handler():
         response = run_command(sms)
     except exceptions.UnknownCommandException:
         response = flask.jsonify({"error": "Comando desconocido."}), 404
-    except exceptions.WrongArguments:
+    except exceptions.WrongArgumentsException:
         response = flask.jsonify({"error": "Argumentos incorrectos."}), 404
+    except TypeError:
+        response = flask.jsonify({"error": "Argumentos del tipo incorrecto."}), 404
+    except SyntaxError:
+        response = flask.jsonify({"error": "Argumentos del tipo incorrecto."}), 404
     return response
 
 
