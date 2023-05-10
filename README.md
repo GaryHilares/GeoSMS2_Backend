@@ -22,6 +22,7 @@ Currently the API replies to any queries in Spanish. English support may or may 
 - PIP
 
 ## Motivation
+We want to help people in some Andean areas of Peru, who don't have access to the Internet, to access useful, if limited, Internet-like functionality through SMS.
 
 ## Installation and usage
 To build and run the server, you can follow the next steps:
