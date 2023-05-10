@@ -37,7 +37,7 @@ Once you do this, you should be able to connect to `https://localhost/` and use 
 ## Contributors
 Thanks to these wonderful people for making GeoSMS2 Backend possible!
 
-<p align="center"><a href="https://github.com/GaryHilares/GeoSMS2-Backend/graphs/contributors"><img src="https://contrib.rocks/image?repo=GaryHilares/GeoSMS2-Backend" /></a></p>
+<p align="center"><a href="https://github.com/GaryHilares/GeoSMS2_Backend/graphs/contributors"><img src="https://contrib.rocks/image?repo=GaryHilares/GeoSMS2_Backend" /></a></p>
 
 ## License
 This work is licensed under a [Creative Commons Attribution 4.0 International License](https://github.com/GaryHilares/GeoSMS2_Backend/blob/main/LICENSE).
