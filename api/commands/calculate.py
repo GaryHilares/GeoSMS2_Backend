@@ -15,9 +15,15 @@ from typing import List
 from api.control import exceptions
 
 # <Modified from @jfs's function: https://stackoverflow.com/a/9558001/12170808>
-operators = {ast.Add: op.add, ast.Sub: op.sub, ast.Mult: op.mul,
-             ast.Div: op.truediv, ast.Pow: op.pow, ast.BitXor: op.xor,
-             ast.USub: op.neg}
+operators = {
+    ast.Add: op.add,
+    ast.Sub: op.sub,
+    ast.Mult: op.mul,
+    ast.Div: op.truediv,
+    ast.Pow: op.pow,
+    ast.BitXor: op.xor,
+    ast.USub: op.neg,
+}
 
 
 def eval_expr(expr):
@@ -27,7 +33,7 @@ def eval_expr(expr):
     :param expr: The expression to evaluate.
     :return: The result of the given expression.
     """
-    return eval_(ast.parse(expr, mode='eval').body)
+    return eval_(ast.parse(expr, mode="eval").body)
 
 
 def eval_(node):
@@ -45,6 +51,8 @@ def eval_(node):
         return operators[type(node.op)](eval_(node.operand))
     else:
         raise TypeError(node)
+
+
 # </Modified from @jfs's function: https://stackoverflow.com/a/9558001/12170808>
 
 
@@ -57,6 +65,6 @@ def calculate(args: List[str]) -> str:
     """
     if not args:
         raise exceptions.WrongArguments("calculate", args)
-    expression = ' '.join(args)
+    expression = " ".join(args)
     response = eval_expr(expression)
     return str(response)

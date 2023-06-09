@@ -21,7 +21,7 @@ def unescape_markup(markup):
     :param markup: Markup to unescape.
     :returns: Markup with all their escaped characters unescaped.
     """
-    return markup.replace('&quot;', '"').replace('&#39;', '\'')
+    return markup.replace("&quot;", '"').replace("&#39;", "'")
 
 
 def translate_from_es_to_en(args: List[str]) -> str:
@@ -35,7 +35,7 @@ def translate_from_es_to_en(args: List[str]) -> str:
     # Get text to translate
     if not args:
         raise exceptions.WrongArguments("translate_from_es_to_en", args)
-    text = ' '.join(args)
+    text = " ".join(args)
 
     # Translate text
     translator = translate.Translator(from_lang="es", to_lang="en")
@@ -45,7 +45,12 @@ def translate_from_es_to_en(args: List[str]) -> str:
     translated_text = unescape_markup(escaped_translated_text)
 
     # Check text length
-    return translated_text if len(translated_text) < 150 else "¡Tu texto es muy largo! Intenta acórtarlo."
+    return (
+        translated_text
+        if len(translated_text) < 150
+        else "¡Tu texto es muy largo! Intenta acórtarlo."
+    )
+
 
 def translate_from_en_to_es(args: List[str]) -> str:
     """
@@ -58,7 +63,7 @@ def translate_from_en_to_es(args: List[str]) -> str:
     # Get text to translate
     if not args:
         raise exceptions.WrongArguments("translate_from_en_to_es", args)
-    text = ' '.join(args)
+    text = " ".join(args)
 
     # Translate text
     translator = translate.Translator(from_lang="en", to_lang="es")
@@ -68,4 +73,8 @@ def translate_from_en_to_es(args: List[str]) -> str:
     translated_text = unescape_markup(escaped_translated_text)
 
     # Check text length
-    return translated_text if len(translated_text) < 150 else "¡Tu texto es muy largo! Intenta acórtarlo."
+    return (
+        translated_text
+        if len(translated_text) < 150
+        else "¡Tu texto es muy largo! Intenta acórtarlo."
+    )

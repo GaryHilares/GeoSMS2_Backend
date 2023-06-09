@@ -15,21 +15,21 @@ import flask
 from api.command_runner import run_command
 from api.control import exceptions, cooldown
 
-dotenv.load_dotenv('.env')
-app = flask.Flask(__name__, template_folder='website')
+dotenv.load_dotenv(".env")
+app = flask.Flask(__name__, template_folder="website")
 
 
-@app.route('/', methods=["GET"])
+@app.route("/", methods=["GET"])
 def index():
     """
     Handles the requests for '/'.
 
     :returns: HTML for the '/' page.
     """
-    return flask.render_template('homepage.html')
+    return flask.render_template("homepage.html")
 
 
-@app.route('/command', methods=["POST"])
+@app.route("/command", methods=["POST"])
 def command_request_handler():
     """
     Handles the requests for '/command'.
@@ -37,8 +37,8 @@ def command_request_handler():
     :returns: JSON response for the '/command' API route.
     """
     request = flask.request
-    mobile_number = request.form.get('num')
-    sms = request.form.get('sms')
+    mobile_number = request.form.get("num")
+    sms = request.form.get("sms")
     response = None
     try:
         if not cooldown.is_ready(mobile_number):
@@ -56,4 +56,4 @@ def command_request_handler():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

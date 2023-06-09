@@ -19,8 +19,9 @@ commands = {
     "chiste": joke.tell_joke_es,
     "buscar": search.search_in_google_es,
     "calcular": calculate.calculate,
-    "moneda": currency.get_exchange_rate
+    "moneda": currency.get_exchange_rate,
 }
+
 
 def run_command(command: str) -> str:
     """
