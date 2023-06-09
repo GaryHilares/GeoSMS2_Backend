@@ -2,7 +2,7 @@ from api.database import getDatabase
 from time import time
 import os
 
-COOLDOWN_TIME_SECONDS = 5;
+COOLDOWN_TIME_SECONDS = 30;
 
 def is_ready(number):
     now = int(time())
