@@ -1,16 +1,12 @@
-from pymongo import MongoClient
+from api.database import getDatabase
 from time import time
 import os
 
 COOLDOWN_TIME_SECONDS = 5;
-host = os.environ.get('MONGO_HOST')
-user = os.environ.get('MONGO_USER')
-password = os.environ.get('MONGO_PASSWORD')
-client = MongoClient(f"mongodb+srv://{user}:{password}@{host}/?retryWrites=true&w=majority")
-db = client.geosms
 
 def is_ready(number):
     now = int(time())
+    db = getDatabase()
     numbers = db["numbers"]
     number_cooldown = numbers.find_one({"number": number})
     if number_cooldown is None or now >= number_cooldown["expiration"]:
