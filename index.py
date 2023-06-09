@@ -13,7 +13,7 @@ FUNCTIONS
 import dotenv
 import flask
 from api.command_runner import run_command
-from api.control import exceptions
+from api.control import exceptions, cooldown
 
 dotenv.load_dotenv('.env')
 app = flask.Flask(__name__, template_folder='website')
@@ -37,9 +37,12 @@ def command_request_handler():
     :returns: JSON response for the '/command' API route.
     """
     request = flask.request
+    mobile_number = request.form.get('num')
     sms = request.form.get('sms')
     response = None
     try:
+        if not cooldown.is_ready(mobile_number):
+            return flask.jsonify({"error": "El cliente está en tiempo fuera."}), 403
         response = run_command(sms)
     except exceptions.UnknownCommandException:
         response = flask.jsonify({"error": "Comando desconocido."}), 404
