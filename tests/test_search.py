@@ -1,6 +1,8 @@
-from api.commands.search import search_in_google_es
+from api.commands.search import search_in_wikipedia_es
 
 
 def test_search_important_people():
-    president_result = search_in_google_es(["presidente", "perú"]).lower()
-    assert "dina" in president_result or "boluarte" in president_result
+    assert all(
+        term in search_in_wikipedia_es(["dina", "boluarte"]).lower()
+        for term in ["dina", "boluarte", "abogada"]
+    )

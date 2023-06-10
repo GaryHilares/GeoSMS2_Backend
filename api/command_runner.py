@@ -17,7 +17,7 @@ commands = {
     "traducir-ing": translate.translate_from_en_to_es,
     "noticia": news.scrap_el_comercio,
     "chiste": joke.tell_joke_es,
-    "buscar": search.search_in_google_es,
+    "buscar": search.search_in_wikipedia_es,
     "calcular": calculate.calculate,
     "moneda": currency.get_exchange_rate,
 }
